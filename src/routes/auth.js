@@ -4,8 +4,9 @@ const bcrypt = require('bcryptjs');
 
 const router = express.Router();
 
-const ADMIN_EMAIL = process.env.ADMIN_EMAIL || 'admin@admin.com';
-const ADMIN_PASSWORD = process.env.ADMIN_PASSWORD || 'admin123';
+const ADMIN_EMAIL = process.env.ADMIN_EMAIL;
+const ADMIN_PASSWORD = process.env.ADMIN_PASSWORD;
+const SECRET_KEY = process.env.SECRET_KEY;
 
 const users = [
   {
@@ -27,7 +28,7 @@ router.post('/login', (req, res) => {
     return res.status(401).send({ auth: false, token: null });
   }
 
-  const token = jwt.sign({ id: user.email }, 'supersecret', { expiresIn: 86400 }); // 24 hours
+  const token = jwt.sign({ id: user.email }, SECRET_KEY, { expiresIn: 86400 }); // 24 hours
   res.status(200).send({ auth: true, token });
 });
 
