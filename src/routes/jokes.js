@@ -29,7 +29,7 @@ const verifyToken = (req, res, next) => {
 // Get all jokes from Submit Jokes microservice
 router.get('/', verifyToken, async (req, res) => {
   try {
-    const response = await axios.get(`${SUBMIT_JOKES_URL}/jokes/all`, {
+    const response = await axios.get(`${SUBMIT_JOKES_URL}/jokes/random`, {
       headers: { 'x-access-token': req.headers['x-access-token'] },
     });
     console.log("------get joke response--------------", response.data);
